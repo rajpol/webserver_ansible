@@ -1,0 +1,16 @@
+--- #Install apache webserver
+- name: Install webserver
+  yum: pkg={{ redhat_apache }} state=latest
+  when: "ansible_os_family == 'RedHat'"
+#- name: Wait for the service to start listeninig on port 80
+#  wait_for:
+#   port: 80
+#   state: started
+  notify: restart httpd
+- name: Install Apache2
+  apt: pkg={{ debian_apache }} state=latest
+  when: "ansible_os_family == 'Debian'"
+  notify: restart apache2
+- debug:
+  when: "ansible_os_family == 'RedHat'"
+  notify: install telnet

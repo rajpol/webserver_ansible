@@ -1,0 +1,9 @@
+--- #Restart httpd
+- name: restart httpd
+  service: name={{ redhat_apache }} state=restarted
+  when: "ansible_os_family == 'RedHat'"
+- name: restart apache2
+  service: name={{ debian_apache }} state=restarted
+  when: "ansible_os_family == 'Debian'"
+- name: install telnet
+  yum: pkg=telnet state=latest

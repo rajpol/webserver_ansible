@@ -1,0 +1,20 @@
+--- #master playbook for webservers
+- hosts: centos
+  user: root
+  become: yes
+  connection: ssh
+  pre_tasks:
+   - name: When did role run
+     command: date
+     register: starttime
+   - debug:
+      var: starttime
+  roles:
+   - { role: redhat_webserver, when: "ansible_os_family == 'RedHat'" }
+   - { role: debian_webserver, when: "ansible_os_family == 'Debian'" }
+  post_tasks:
+   - name: Roles end time
+     command: date
+     register: endtime
+   - debug:
+      var: endtime
