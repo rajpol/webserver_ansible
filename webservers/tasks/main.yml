@@ -11,6 +11,3 @@
   apt: pkg={{ debian_apache }} state=latest
   when: "ansible_os_family == 'Debian'"
   notify: restart apache2
-- debug:
-  when: "ansible_os_family == 'RedHat'"
-  notify: install telnet
